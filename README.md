@@ -1,156 +1,287 @@
-Rainfall Prediction Project 🌧️
+Predicting Rainfall Using Machine Learning
 
-Developed for: Ethiopian Statistics Service (ESS)
-Prepared by: Demirewu Manidefro
-Program: Data Science Internship
-Duration: 2 Months
-Supervisor: Stotaw (ESS Manager)
-Date: October 2025
+Internship Project – Ethiopia Statistical Service
 
-Overview
+Table of Contents
 
-This project predicts rainfall using environmental, geographical, and climatic features. The goal is to create an accurate model to support planning and decision-making. Multiple models were trained, evaluated, and compared to select the best performing approach.
+Introduction
 
-Key steps include:
-
-Data preprocessing (outlier handling, log transformation, encoding, scaling)
-
-Feature selection (multicollinearity reduction using VIF)
-
-Model training and evaluation (Linear Regression, Decision Tree, Random Forest)
-
-Dataset
-
-Size: 514 observations, 33 raw features + 2 categorical variables (ssa_aez09, landcov)
-
-Features:
-
-Distances: dist_road, dist_market, dist_border, dist_popcenter, dist_admhq
-
-Bioclimatic: af_bio_1_x, af_bio_8_x, af_bio_12_x, af_bio_13_x, af_bio_16_x
-
-Vegetation indices: evimax_avg, grn_avg, sen_avg
-
-Geospatial: lat_dd_mod, lon_dd_mod
-
-Other derived metrics: h2021_eviarea, h2021_evimax, etc.
-
-Target: rainfall (mm)
+Dataset Description
 
 Data Preprocessing
 
-Outlier Treatment: Capped extreme values using IQR method.
+Feature Scaling
 
-Log Transformation: Reduced skewness and stabilized variance for numeric features.
+Train-Test Split
 
-Categorical Encoding: One-hot encoded ssa_aez09 and landcov.
+Model Development
 
-Feature Scaling: Standardized all numeric features with StandardScaler.
+Linear Regression
 
-Multicollinearity Handling: Removed features with high Variance Inflation Factor (VIF).
+Decision Tree Regressor
 
-Models Used
-1️⃣ Linear Regression
+Random Forest Regressor
 
-Captures linear relationships between features and rainfall.
+Feature Importance Analysis
 
-Metrics:
+Model Validation
 
-Train R²: 0.9970
+Cross-Validation
 
-Test R²: 0.9921
+Prediction on New Data
 
-MAE: 23.83
+Feature Selection
 
-RMSE: 37.34
-
-Pros: Fast, interpretable
-
-Cons: Cannot capture non-linear relationships
-
-2️⃣ Decision Tree Regressor (max_depth=5)
-
-Handles non-linear relationships between features.
-
-Metrics:
-
-Train R²: 0.9986
-
-Test R²: 0.9978
-
-MAE: 15.67
-
-RMSE: 19.83
-
-Pros: Visualizable, interpretable
-
-Cons: Single tree may overfit without depth control
-
-3️⃣ Random Forest Regressor (200 trees, default)
-
-Ensemble of decision trees; reduces variance and overfitting.
-
-Metrics:
-
-Train R²: 0.9999
-
-Test R²: 0.9991
-
-MAE: 7.57
-
-RMSE: 12.39
-
-Pros: High accuracy, robust to overfitting, handles high-dimensional data
-
-Cons: Less interpretable than single trees, computationally heavier
-
-4️⃣ Random Forest Regressor (100 trees, max_depth=10, max_features='sqrt')
-
-Tuned Random Forest for regularization.
-
-Metrics:
-
-Train R²: 0.9969
-
-Test R²: 0.9790
-
-MAE: 38.26
-
-RMSE: 61.03
-
-Observation: Slight underfitting due to reduced model complexity
-
-Model Comparison
-Model	R² (Train)	R² (Test)	MAE	RMSE	Notes
-Linear Regression	0.9970	0.9921	23.83	37.34	Linear, interpretable
-Decision Tree (max_depth=5)	0.9986	0.9978	15.67	19.83	Non-linear, visualizable
-Random Forest (200 trees)	0.9999	0.9991	7.57	12.39	Best performance, robust
-Random Forest (100 trees, tuned)	0.9969	0.9790	38.26	61.03	Slight underfitting
-
-✅ Best Model: Random Forest Regressor with 200 trees (highest accuracy and lowest error).
-
-Key Benefits of Selected Model
-
-High predictive accuracy (R² > 0.99)
-
-Robust to feature collinearity and outliers
-
-Captures non-linear feature interactions
-
-Suitable for high-dimensional datasets
-
-Reduces overfitting via ensemble averaging
-
-Recommendations
-
-Deploy Random Forest Regressor for operational rainfall prediction.
-
-Collect more recent environmental data to further improve accuracy.
-
-Use feature importance plots for interpretability.
-
-Integrate the model into a Flask-based web application for real-time predictions.
+Model Evaluation Metrics
 
 Conclusion
 
-This project successfully develops a robust model for rainfall prediction. The Random Forest Regressor (200 trees) outperformed all other models in accuracy and robustness, making it suitable for ESS operational use.
+Future Work
+
+References
+
+Introduction
+
+The goal of this project is to develop a robust machine learning model for predicting rainfall based on environmental, climatic, and geographical features. Rainfall prediction is critical for:
+
+Agriculture planning
+
+Water resource management
+
+Disaster preparedness
+
+This project was conducted as part of a Data Science internship at Ethiopia Statistical Service.
+
+The dataset contains 514 observations with 79 features, including climate, geographical distances, elevation, population density, land cover, and agro-climatic indicators.
+
+Project Workflow:
+
+Data preprocessing and feature scaling
+
+Train-test splitting
+
+Model development (Linear Regression, Decision Tree, Random Forest)
+
+Feature importance analysis
+
+Feature selection
+
+Model evaluation using multiple metrics
+
+Prediction on new samples
+
+Dataset Description
+
+The dataset contains 514 observations and 79 features, including:
+
+Geospatial distances: Distance to road, market, border, population centers, administrative headquarters
+
+Climatic indicators: af_bio variables (temperature & precipitation metrics), wetQ_avg, afmnslp_pct
+
+Elevation: srtm_1k, srtm_1k_log
+
+Land cover variables: Cropland, forests, shrubs, herbaceous vegetation
+
+Population indicators: dist_popcenter, pct_urban_cluster
+
+Target variable: rainfall (in mm)
+
+Preprocessing: Some features were log-transformed (rainfall_log, af_bio_*_log, dist_*_log) to normalize skewed distributions.
+
+Data Preprocessing
+Feature Scaling
+
+All features were standardized using StandardScaler to have mean = 0 and standard deviation = 1.
+
+from sklearn.preprocessing import StandardScaler
+
+X = df_encoded.drop('rainfall', axis=1)
+y = df_encoded['rainfall']
+
+scaler = StandardScaler()
+X_scaled = scaler.fit_transform(X)
+X_scaled_df = pd.DataFrame(X_scaled, columns=X.columns)
+df_scaled = pd.concat([X_scaled_df, y.reset_index(drop=True)], axis=1)
+
+
+Result: Scaled dataset with shape (514, 80)
+
+Train-Test Split
+
+Data was split into training (80%) and testing (20%) sets:
+
+from sklearn.model_selection import train_test_split
+
+X = df_scaled.drop('rainfall', axis=1)
+y = df_scaled['rainfall']
+
+X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+
+Training set: (411, 79)
+
+Testing set: (103, 79)
+
+Model Development
+Linear Regression
+
+Objective: Serve as a baseline model
+
+Results:
+
+R² (Train) ≈ 0.9970
+
+R² (Test) ≈ 0.9921
+
+MAE ≈ 23.83 mm
+
+RMSE ≈ 37.33 mm
+
+Observation: Slight overfitting; handles linear relationships reasonably well
+
+Decision Tree Regressor
+
+Configuration: max_depth=5
+
+Results:
+
+R² (Train) ≈ 0.9986
+
+R² (Test) ≈ 0.9978
+
+MAE ≈ 15.67 mm
+
+RMSE ≈ 19.83 mm
+
+Observation: Captures non-linear patterns better than Linear Regression
+
+Random Forest Regressor
+
+Method: Ensemble of multiple decision trees
+
+Experiments:
+
+Full model (200 trees)
+
+Train R² ≈ 0.9999
+
+Test R² ≈ 0.9991
+
+MAE ≈ 7.57 mm, RMSE ≈ 12.39 mm
+
+Tuned model (max_depth=10, max_features='sqrt')
+
+Test R² ≈ 0.9789, MAE ≈ 38.25 mm
+
+Top 20 features (selected via permutation importance)
+
+Test R² ≈ 0.9996, MAE ≈ 5.07 mm, RMSE ≈ 7.94 mm
+
+Observation: Random Forest provides the best performance, capturing non-linearities effectively
+
+Feature Importance Analysis
+Standard RF Feature Importance
+Feature	Importance
+rainfall_log	0.996
+af_bio_16_x	0.00063
+af_bio_16_x_log	0.00048
+af_bio_13_x	0.00028
+af_bio_13_x_log	0.00026
+
+Observation: rainfall_log dominates predictive power
+
+Permutation Importance
+
+Identifies true contribution of each feature
+
+Top 20 features selected for reduced model improve interpretability without sacrificing accuracy
+
+Model Validation
+Cross-Validation
+
+5-fold CV on top 20 features:
+
+Mean R² ≈ 0.99927
+
+CV MAE ≈ 5.92 mm
+
+Observation: Model is stable and generalizes well
+
+Prediction on New Data
+sample_data = {col: [0.5] for col in top_20_features}
+sample_df = pd.DataFrame(sample_data)
+
+predicted_rainfall = rf.predict(sample_df)[0]
+
+
+Predicted rainfall: 1138.38 mm
+
+Actual rainfall: 1027 mm
+
+Error: 111.38 mm
+
+Another example:
+
+Predicted: 1882.55 mm
+
+Actual: 1850 mm
+
+Error ≈ 32.55 mm → very accurate
+
+Feature Selection
+
+Reduced from 79 → 20 features using permutation importance
+
+Benefits:
+
+Faster training & prediction
+
+Improved interpretability
+
+Slightly improved test accuracy (R² ≈ 0.9996)
+
+Top features include:
+rainfall_log, af_bio_16_x, af_bio_16_x_log, af_bio_13_x_log, af_bio_13_x, cropshare, dist_market_log, dist_road_log, …
+
+Model Evaluation Metrics
+Metric	Linear Regression	Decision Tree	Random Forest (Top 20)
+R² (Train)	0.9903	0.9986	0.9996
+R² (Test)	0.9895	0.9978	0.9996
+MAE	31.71 mm	15.67 mm	5.07 mm
+RMSE	43.14 mm	19.83 mm	7.94 mm
+
+Observation: Random Forest (Top 20 features) is the most accurate and reliable
+
+Conclusion
+
+Best model: Random Forest Regressor
+
+Advantages: High accuracy (R² > 0.999), low error (MAE ≈ 5 mm), strong generalization
+
+Recommendations:
+
+Deploy Random Forest for operational rainfall prediction
+
+Monitor feature drift and update model periodically
+
+Explore additional environmental variables (e.g., soil moisture, satellite indices)
+
+Use top 20 features for simplified reporting
+
+Future Work
+
+Hyperparameter tuning (GridSearchCV / Bayesian optimization)
+
+Deploy as a web-based prediction tool
+
+Integrate with geospatial data for regional rainfall mapping
+
+Explore other ensemble models (XGBoost, LightGBM) for comparison
+
+References
+
+Scikit-learn Documentation
+
+Breiman, L. (2001). Random Forests. Machine Learning.
+
+Ethiopia Statistical Service (2023). Climate and Agro-E

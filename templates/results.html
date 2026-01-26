@@ -1,0 +1,31 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="container">
+    <h1 style="text-align: center; margin-bottom: 40px;">Model Performance & Results</h1>
+
+    <div class="info-grid">
+        <div class="info-card" style="text-align: center;">
+            <h3 style="color: #10b981;">0.85</h3>
+            <p>R² Score</p>
+        </div>
+        <div class="info-card" style="text-align: center;">
+            <h3 style="color: #f59e0b;">12.4 mm</h3>
+            <p>Mean Absolute Error (MAE)</p>
+        </div>
+        <div class="info-card" style="text-align: center;">
+            <h3 style="color: #ef4444;">18.2 mm</h3>
+            <p>Root Mean Squared Error (RMSE)</p>
+        </div>
+    </div>
+
+    <div class="chart-box" style="margin-top: 50px; height: 500px;">
+        <h3 style="margin-bottom: 20px;">Actual vs Predicted Rainfall</h3>
+        <!-- You would typically load a static image or a more complex chart here -->
+        <div
+            style="height: 100%; display: flex; align-items: center; justify-content: center; background: rgba(0,0,0,0.2); border-radius: 10px;">
+            <p style="color: var(--text-muted);">[Visualization Placeholder: Scatter Plot of Actual vs Predicted]</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

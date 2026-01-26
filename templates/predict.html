@@ -1,0 +1,60 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="container" style="max-width: 1000px;">
+    <div style="text-align: center; margin-bottom: 40px;">
+        <h1 style="font-size: 2.5rem; margin-bottom: 10px;">Rainfall Prediction</h1>
+        <p style="color: var(--text-muted);">Enter the climatic variables below to generate a rainfall forecast.</p>
+    </div>
+
+    <form id="predictionForm" onsubmit="handlePrediction(event)">
+        <div class="predict-grid">
+            {% for feature in features %}
+            <div class="form-group">
+                <label for="{{ feature }}">{{ feature }}</label>
+                <input type="number" step="0.01" id="{{ feature }}" name="{{ feature }}" placeholder="0.00" required>
+            </div>
+            {% endfor %}
+        </div>
+
+        <div style="text-align: center; margin-top: 30px;">
+            <button type="submit" class="cta-btn" id="predictBtn">
+                <i class="fa-solid fa-cloud-bolt"></i> Predict Rainfall
+            </button>
+        </div>
+    </form>
+
+    <!-- Loading Indicator -->
+    <div id="loading" style="display: none; text-align: center; margin-top: 40px;">
+        <i class="fa-solid fa-circle-notch fa-spin" style="font-size: 3rem; color: var(--accent);"></i>
+        <p style="margin-top: 15px; color: var(--text-muted);">Analyzing Data...</p>
+    </div>
+
+    <!-- Results Section (Dynamically Populated) -->
+    <div id="resultSection" class="result-card">
+        <h2>Prediction Result</h2>
+        <div class="prediction-value">
+            <span id="predValue">0.00</span> <span style="font-size: 1.5rem; color: var(--text-muted);">mm</span>
+        </div>
+        <p id="predNote" style="color: var(--text-muted); margin-bottom: 30px;"></p>
+
+        <div class="charts-container">
+            <div class="chart-box">
+                <h4 style="margin-bottom: 15px;">Feature Importance</h4>
+                <canvas id="importanceChart"></canvas>
+            </div>
+            <div class="chart-box">
+                <h4 style="margin-bottom: 15px;">Confidence Level</h4>
+                <canvas id="confidenceChart"></canvas>
+            </div>
+        </div>
+
+        <div style="margin-top: 40px;">
+            <button
+                onclick="document.getElementById('predictionForm').reset(); document.getElementById('resultSection').style.display='none';"
+                class="cta-btn" style="background: var(--bg-dark); border: 1px solid var(--glass-border);">Make Another
+                Prediction</button>
+        </div>
+    </div>
+</section>
+{% endblock %}

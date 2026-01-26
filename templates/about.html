@@ -1,0 +1,34 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<section class="container">
+    <div style="max-width: 800px; margin: 0 auto;">
+        <h1 style="margin-bottom: 30px;">About the Project</h1>
+
+        <div class="info-card" style="margin-bottom: 30px;">
+            <h3>Ethiopia Statistical Service (ESS)</h3>
+            <p style="color: var(--text-muted);">This project is part of an internship initiative at the Ethiopia
+                Statistical Service. The goal is to leverage modern data science benchmarks to improve climatic
+                forecasting within the region.</p>
+        </div>
+
+        <div class="info-card" style="margin-bottom: 30px;">
+            <h3>Methodology</h3>
+            <p style="color: var(--text-muted); margin-bottom: 10px;">We employed a Random Forest Regressor algorithm
+                due to its robustness in handling non-linear relationships in meteorological data.</p>
+            <ul style="list-style-position: inside; color: var(--text-muted);">
+                <li>Data Collection: 5 years of household and geospatial records.</li>
+                <li>Preprocessing: StandardScaler normalization and handling missing values.</li>
+                <li>Feature Engineering: Selection of top 20 most impactful variables.</li>
+                <li>Evaluation: Validated using K-Fold cross-validation.</li>
+            </ul>
+        </div>
+
+        <div class="info-card">
+            <h3>Team</h3>
+            <p style="color: var(--text-muted);">Developed by [Your Name] under the supervision of ESS Data Science
+                Division.</p>
+        </div>
+    </div>
+</section>
+{% endblock %}

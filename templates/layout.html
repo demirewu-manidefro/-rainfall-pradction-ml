@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Ethiopia Rainfall Predictor - ESS</title>
+
+    <!-- Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link
+        href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Outfit:wght@400;700;&display=swap"
+        rel="stylesheet">
+
+    <!-- Chart.js for visualizations -->
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+    <!-- Custom CSS -->
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}">
+
+    <!-- Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+
+<body>
+
+    <nav class="navbar">
+        <div class="logo">
+            <i class="fa-solid fa-cloud-showers-heavy"></i> RainForecaster
+        </div>
+        <ul class="nav-links">
+            <li><a href="{{ url_for('index') }}"
+                    class="nav-linksLink {% if request.path == '/' %}active{% endif %}">Home</a></li>
+            <li><a href="{{ url_for('about') }}"
+                    class="nav-linksLink {% if request.path == '/about' %}active{% endif %}">About</a></li>
+
+            <!-- ML Project Slots -->
+            <li><a href="{{ url_for('results_page') }}"
+                    class="nav-linksLink {% if request.path == '/results' %}active{% endif %}">Model Results</a></li>
+            <li><a href="#" class="nav-linksLink"
+                    onclick="alert('Dataset details coming soon - Part of Phase 2')">Dataset</a></li>
+
+            <li><a href="#contact" class="nav-linksLink">Contact</a></li>
+            <li><a href="{{ url_for('predict_page') }}" class="nav-linksLink nav-cta">Predict Now</a></li>
+        </ul>
+        <div class="hamburger" onclick="toggleMenu()">
+            <span class="bar"></span>
+            <span class="bar"></span>
+            <span class="bar"></span>
+        </div>
+    </nav>
+
+    <!-- Mobile Menu Overlay -->
+    <div class="mobile-menu" id="mobileMenu">
+        <a href="{{ url_for('index') }}" onclick="toggleMenu()">Home</a>
+        <a href="{{ url_for('about') }}" onclick="toggleMenu()">About</a>
+        <a href="{{ url_for('results_page') }}" onclick="toggleMenu()">Model Results</a>
+        <a href="#" onclick="toggleMenu()">Dataset</a>
+        <a href="{{ url_for('predict_page') }}" onclick="toggleMenu()">Predict</a>
+    </div>
+
+    <main>
+        {% block content %}{% endblock %}
+    </main>
+
+    <footer>
+        <p>&copy; 2026 Ethiopia Statistical Service (ESS). All Rights Reserved.</p>
+        <p>Internship Project - Rainfall Prediction System</p>
+    </footer>
+
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+</body>
+
+</html>

@@ -1,0 +1,97 @@
+{% extends "layout.html" %}
+
+{% block content %}
+<!-- Hero Section -->
+<section class="hero">
+    <div class="hero-content">
+        <h1>Predict Rainfall with<br> <span style="color: var(--primary);">AI Precision</span></h1>
+        <p>Empowering Ethiopia's Agriculture and Water Management through Advanced Random Forest Models. A project for
+            the Ethiopia Statistical Service (ESS).</p>
+        <div style="margin-top: 40px; display: flex; justify-content: center; gap: 20px;">
+            <a href="{{ url_for('predict_page') }}" class="cta-btn" style="min-width: 200px;">
+                <i class="fa-solid fa-bolt"></i> Start Prediction
+            </a>
+            <a href="{{ url_for('about') }}" class="cta-btn"
+                style="background: transparent; border: 2px solid var(--text-muted); color: var(--text-light); min-width: 160px;">
+                <i class="fa-solid fa-circle-info"></i> Learn More
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- Features Section -->
+<section class="container">
+    <div style="text-align: center; margin-bottom: 60px;">
+        <h2 style="font-size: 2.5rem; margin-bottom: 15px;">Why This Model?</h2>
+        <div style="width: 60px; height: 4px; background: var(--primary); margin: 0 auto; border-radius: 2px;"></div>
+    </div>
+
+    <div class="info-grid">
+        <div class="info-card">
+            <div
+                style="width: 60px; height: 60px; background: rgba(6, 214, 160, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <i class="fa-solid fa-microchip" style="font-size: 1.8rem; color: var(--primary);"></i>
+            </div>
+            <h3>Advanced ML Core</h3>
+            <p style="color: var(--text-muted);">Utilizing Random Forest Regressors trained on 5 years of household and
+                geospatial data for maximum accuracy.</p>
+        </div>
+        <div class="info-card">
+            <div
+                style="width: 60px; height: 60px; background: rgba(17, 138, 178, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <i class="fa-solid fa-chart-line" style="font-size: 1.8rem; color: var(--secondary);"></i>
+            </div>
+            <h3>Data-Driven Outcomes</h3>
+            <p style="color: var(--text-muted);">Analyze top climatic variables to forecast rainfall patterns, aiding in
+                critical disaster prevention.</p>
+        </div>
+        <div class="info-card">
+            <div
+                style="width: 60px; height: 60px; background: rgba(255, 209, 102, 0.1); border-radius: 50%; display: flex; align-items: center; justify-content: center; margin-bottom: 20px;">
+                <i class="fa-solid fa-wheat-awn" style="font-size: 1.8rem; color: var(--accent);"></i>
+            </div>
+            <h3>Agricultural Impact</h3>
+            <p style="color: var(--text-muted);">Helping farmers and government bodies make informed decisions for crop
+                planning and water usage.</p>
+        </div>
+    </div>
+</section>
+
+<!-- Contact Section (New) -->
+<section id="contact" class="contact-section">
+    <div class="container">
+        <div style="text-align: center; margin-bottom: 50px;">
+            <h2 style="font-size: 2.5rem; margin-bottom: 10px;">Get In Touch</h2>
+            <p style="color: var(--text-muted);">Have questions about the model or the dataset? Reach out to us.</p>
+        </div>
+
+        <div class="contact-container">
+            <form class="contact-form" onsubmit="event.preventDefault(); alert('Message sent! (Demo)');">
+                <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 20px;">
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <label>Name</label>
+                        <input type="text" placeholder="Your Name" required>
+                    </div>
+                    <div style="display: flex; flex-direction: column; gap: 8px;">
+                        <label>Email</label>
+                        <input type="email" placeholder="your@email.com" required>
+                    </div>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label>Subject</label>
+                    <input type="text" placeholder="Project Inquiry / Feedback" required>
+                </div>
+
+                <div style="display: flex; flex-direction: column; gap: 8px;">
+                    <label>Message</label>
+                    <textarea rows="5" placeholder="How can we help?" required></textarea>
+                </div>
+
+                <button type="submit">Send Message <i class="fa-solid fa-paper-plane"
+                        style="margin-left: 8px;"></i></button>
+            </form>
+        </div>
+    </div>
+</section>
+{% endblock %}

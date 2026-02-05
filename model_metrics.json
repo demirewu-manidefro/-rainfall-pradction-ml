@@ -1,0 +1,15 @@
+{
+    "model_name": "Random Forest",
+    "best_params": {
+        "max_depth": 30,
+        "min_samples_leaf": 1,
+        "min_samples_split": 2,
+        "n_estimators": 100
+    },
+    "train_r2": 0.9999586825246761,
+    "test_r2": 0.9998214202216282,
+    "train_rmse": 2.484457733502209,
+    "test_rmse": 5.0404390559046215,
+    "train_mae": 0.1983311839050804,
+    "test_mae": 0.4551649484536071
+}
